@@ -23,15 +23,6 @@
         android:inputType="textMultiLine"
         android:minLines="3" />
 
-    <!-- Кнопка "Сохранить" -->
-
-    <Button
-        android:id="@+id/buttonChooseImage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/editTextDescription"
-        android:text="Choose Image" />
-
     <Button
         android:id="@+id/save_button"
         android:layout_width="wrap_content"

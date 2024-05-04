@@ -25,33 +25,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         theoremListView = findViewById(R.id.theorem_list_view);
         dbHelper = new DatabaseHelper(this);
-
         FloatingActionButton addButton = findViewById(R.id.add_button);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // При нажатии на кнопку "+" открываем активити для добавления новой теоремы
                 startActivity(new Intent(MainActivity.this, AddTheoremActivity.class));
             }
         });
 
-        // Получаем список всех теорем из базы данных
         theoremList = dbHelper.getAllTheorems();
 
-        // Создаем адаптер для отображения заголовков теорем в ListView
         adapter = new TheoremAdapter(this, theoremList);
         theoremListView.setAdapter(adapter);
 
-        // Обработчик нажатия на заголовок теоремы
         theoremListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // Получаем выбранную теорему по позиции в списке
                 Theorem selectedTheorem = theoremList.get(position);
-                // Открываем экран с текстом выбранной теоремы
                 Intent intent = new Intent(MainActivity.this, TheoremDetailsActivity.class);
                 intent.putExtra("theorem_title", selectedTheorem.getTitle());
                 intent.putExtra("theorem_content", selectedTheorem.getContent());
@@ -63,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // Обновляем список теорем при возвращении на главный экран
         theoremList.clear();
         theoremList.addAll(dbHelper.getAllTheorems());
         adapter.notifyDataSetChanged();

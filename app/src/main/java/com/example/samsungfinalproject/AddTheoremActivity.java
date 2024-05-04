@@ -42,7 +42,6 @@ public class AddTheoremActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter both title and content", Toast.LENGTH_SHORT).show();
             return;
         }
-
         long result = databaseHelper.addTheorem(title, content);
 
         if (result != -1) {

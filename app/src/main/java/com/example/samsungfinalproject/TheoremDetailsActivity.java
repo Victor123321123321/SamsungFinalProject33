@@ -12,16 +12,13 @@ public class TheoremDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theorem_details);
 
-        // Получаем данные о выбранной теореме из интента
         Intent intent = getIntent();
         String title = intent.getStringExtra("theorem_title");
         String content = intent.getStringExtra("theorem_content");
 
-        // Находим TextView в макете для отображения заголовка и текста теоремы
         TextView titleTextView = findViewById(R.id.title_text_view);
         TextView contentTextView = findViewById(R.id.content_text_view);
 
-        // Устанавливаем заголовок и текст теоремы в соответствующие TextView
         titleTextView.setText(title);
         contentTextView.setText(content);
     }
