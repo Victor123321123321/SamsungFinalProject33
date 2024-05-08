@@ -37,7 +37,7 @@ public class AddTheoremActivity extends AppCompatActivity {
     private void saveTheorem() {
         String title = editTextTitle.getText().toString().trim();
         String content = editTextContent.getText().toString().trim();
-
+//        int userId = getCurrentUserId();
         if (title.isEmpty() || content.isEmpty()) {
             Toast.makeText(this, "Please enter both title and content", Toast.LENGTH_SHORT).show();
             return;
