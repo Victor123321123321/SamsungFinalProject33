@@ -56,18 +56,18 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {username, password};
 
         Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
-        long userId = -1; // Инициализируем идентификатор пользователя значением по умолчанию
+        long userId = -1;
 
-        if (cursor.moveToFirst()) { // Если курсор не пустой
+        if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndex(KEY_ID);
-            if (idIndex != -1) { // Проверяем, что индекс корректен
-                userId = cursor.getLong(idIndex); // Получаем идентификатор пользователя из курсора
+            if (idIndex != -1) {
+                userId = cursor.getLong(idIndex);
             }
         }
 
         cursor.close();
         db.close();
 
-        return userId; // Возвращаем идентификатор пользователя или -1, если пользователь не найден
+        return userId;
     }
 }

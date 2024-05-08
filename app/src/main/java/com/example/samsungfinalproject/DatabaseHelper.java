@@ -31,7 +31,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 KEY_ID + " INTEGER PRIMARY KEY," +
                 KEY_TITLE + " TEXT," +
                 KEY_CONTENT + " TEXT," +
-                KEY_USER_ID + " INTEGER" + // добавляем новое поле для хранения id пользователя
+                KEY_USER_ID + " INTEGER" +
                 ")";
         db.execSQL(CREATE_THEOREMS_TABLE);
     }
@@ -48,7 +48,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, title);
         values.put(KEY_CONTENT, content);
-        values.put(KEY_USER_ID, userId); // сохраняем id пользователя вместе с теоремой
+        values.put(KEY_USER_ID, userId);
 
         long result = db.insert(TABLE_THEOREMS, null, values);
         db.close();
@@ -59,9 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Theorem> getAllTheorems(int userId) {
         List<Theorem> theoremList = new ArrayList<>();
-        System.out.println("=-=-==--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         System.out.println(userId);
-        System.out.println("=-=-==--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         String selectQuery = "SELECT * FROM " + TABLE_THEOREMS + " WHERE " + KEY_USER_ID + " = " + userId;
 
         SQLiteDatabase db = this.getWritableDatabase();

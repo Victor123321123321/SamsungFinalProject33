@@ -38,13 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        long id = userDb.checkUser(username, password); // Получаем идентификатор пользователя из базы данных
+        long id = userDb.checkUser(username, password);
 
         if (id != -1) {
-            // Пользователь существует, переход к MainActivity
-            UserManager.setCurrentUserId((int) id); // Устанавливаем идентификатор текущего пользователя
+            UserManager.setCurrentUserId((int) id);
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            finish(); // закрываем активность авторизации
+            finish();
         } else {
             // Пользователь не существует
             Toast.makeText(LoginActivity.this, "Login failed. User does not exist.", Toast.LENGTH_SHORT).show();

@@ -33,10 +33,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // Получаем идентификатор текущего пользователя из UserManager
         int currentUserId = UserManager.getCurrentUserId();
 
-        // Получаем список теорем только для текущего пользователя
         theoremList = dbHelper.getAllTheorems(currentUserId);
 
         adapter = new TheoremAdapter(this, theoremList);
@@ -57,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // При каждом возврате на MainActivity обновляем список теорем для текущего пользователя
         int currentUserId = UserManager.getCurrentUserId();
         theoremList.clear();
         theoremList.addAll(dbHelper.getAllTheorems(currentUserId));

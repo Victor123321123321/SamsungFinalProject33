@@ -41,9 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         if (id != -1) {
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
-            UserManager.setCurrentUserId((int) id); // Устанавливаем идентификатор текущего пользователя
+            UserManager.setCurrentUserId((int) id);
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
-            finish(); // закрываем активность регистрации
+            finish();
         } else {
             Toast.makeText(this, "Registration failed", Toast.LENGTH_SHORT).show();
         }
