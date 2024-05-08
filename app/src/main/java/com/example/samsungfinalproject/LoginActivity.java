@@ -6,12 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
+
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -42,10 +38,11 @@ public class LoginActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        boolean userExists = userDb.checkUser(username, password);
+        long id = userDb.checkUser(username, password); // Получаем идентификатор пользователя из базы данных
 
-        if (userExists) {
+        if (id != -1) {
             // Пользователь существует, переход к MainActivity
+            UserManager.setCurrentUserId((int) id); // Устанавливаем идентификатор текущего пользователя
             startActivity(new Intent(LoginActivity.this, MainActivity.class));
             finish(); // закрываем активность авторизации
         } else {
@@ -53,4 +50,5 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(LoginActivity.this, "Login failed. User does not exist.", Toast.LENGTH_SHORT).show();
         }
     }
+
 }

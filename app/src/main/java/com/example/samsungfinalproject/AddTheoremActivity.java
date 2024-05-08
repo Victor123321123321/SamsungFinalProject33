@@ -37,12 +37,12 @@ public class AddTheoremActivity extends AppCompatActivity {
     private void saveTheorem() {
         String title = editTextTitle.getText().toString().trim();
         String content = editTextContent.getText().toString().trim();
-//        int userId = getCurrentUserId();
+        int userId = UserManager.getCurrentUserId(); // Получаем идентификатор текущего пользователя из UserManager
         if (title.isEmpty() || content.isEmpty()) {
             Toast.makeText(this, "Please enter both title and content", Toast.LENGTH_SHORT).show();
             return;
         }
-        long result = databaseHelper.addTheorem(title, content);
+        long result = databaseHelper.addTheorem(title, content, userId); // Используем новый метод с тремя параметрами
 
         if (result != -1) {
             Toast.makeText(this, "Theorem saved successfully", Toast.LENGTH_SHORT).show();

@@ -10,7 +10,7 @@ import java.util.List;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "TheoremDB";
 
     // Таблица для хранения теорем
@@ -18,7 +18,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_ID = "id";
     private static final String KEY_TITLE = "title";
     private static final String KEY_CONTENT = "content";
-    private static final String TABLE_USERS = "users";
     private static final String KEY_USER_ID = "user_id";
 
     public DatabaseHelper(Context context) {
@@ -60,6 +59,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public List<Theorem> getAllTheorems(int userId) {
         List<Theorem> theoremList = new ArrayList<>();
+        System.out.println("=-=-==--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
+        System.out.println(userId);
+        System.out.println("=-=-==--=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-");
         String selectQuery = "SELECT * FROM " + TABLE_THEOREMS + " WHERE " + KEY_USER_ID + " = " + userId;
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -79,4 +81,5 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
         return theoremList;
     }
+
 }

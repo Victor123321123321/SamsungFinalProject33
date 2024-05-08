@@ -6,12 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,7 +33,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        theoremList = dbHelper.getAllTheorems();
+        // Получаем идентификатор текущего пользователя из UserManager
+        int currentUserId = UserManager.getCurrentUserId();
+
+        // Получаем список теорем только для текущего пользователя
+        theoremList = dbHelper.getAllTheorems(currentUserId);
 
         adapter = new TheoremAdapter(this, theoremList);
         theoremListView.setAdapter(adapter);
@@ -55,8 +57,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        // При каждом возврате на MainActivity обновляем список теорем для текущего пользователя
+        int currentUserId = UserManager.getCurrentUserId();
         theoremList.clear();
-        theoremList.addAll(dbHelper.getAllTheorems());
+        theoremList.addAll(dbHelper.getAllTheorems(currentUserId));
         adapter.notifyDataSetChanged();
     }
 }

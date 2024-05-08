@@ -48,7 +48,7 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public boolean checkUser(String username, String password) {
+    public long checkUser(String username, String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         String[] columns = {KEY_ID};
@@ -56,10 +56,18 @@ public class UserDatabaseHelper extends SQLiteOpenHelper {
         String[] selectionArgs = {username, password};
 
         Cursor cursor = db.query(TABLE_USERS, columns, selection, selectionArgs, null, null, null);
-        int count = cursor.getCount();
+        long userId = -1; // Инициализируем идентификатор пользователя значением по умолчанию
+
+        if (cursor.moveToFirst()) { // Если курсор не пустой
+            int idIndex = cursor.getColumnIndex(KEY_ID);
+            if (idIndex != -1) { // Проверяем, что индекс корректен
+                userId = cursor.getLong(idIndex); // Получаем идентификатор пользователя из курсора
+            }
+        }
+
         cursor.close();
         db.close();
 
-        return count > 0;
+        return userId; // Возвращаем идентификатор пользователя или -1, если пользователь не найден
     }
 }
