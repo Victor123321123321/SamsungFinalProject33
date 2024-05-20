@@ -2,6 +2,7 @@ package com.example.samsungfinalproject;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,7 +38,15 @@ public class RegisterActivity extends AppCompatActivity {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
 
-        long id = userDb.addUser(username, password);
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // Хэшируем пароль перед сохранением
+        String hashedPassword = PasswordUtils.hashPassword(password);
+
+        long id = userDb.addUser(username, hashedPassword);
 
         if (id != -1) {
             Toast.makeText(this, "Registration successful", Toast.LENGTH_SHORT).show();
